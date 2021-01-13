@@ -3,13 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 # import sqlite3
 
+# create the application object
 app = Flask(__name__)
 
-app.secret_key = 'secret'
-# app.database = 'sample.db' # comment out sqllite3 usage
-# Now using SQLAlchemy below
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# config
+import os
+app.config.from_object(os.environ['APP_SETTINGS'])
+print(os.environ['APP_SETTINGS'])
 
 # create the sqlalchemy object
 db = SQLAlchemy(app)
@@ -60,4 +60,4 @@ def logout():
     # return sqlite3.connect('posts.db')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
