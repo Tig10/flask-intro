@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Intro</title>     
+    <link rel="stylesheet" href="../static/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column"></div>
+                <div class="column">
+                    <!-- child template -->
+                    {% block content %}{% endblock%}
+                    
+                </div>
+                <div class="column"></div>
+            </div>
+        </div>
+    </section>
+    <script src="../static/app.js"></script>
+</body>
+</html>

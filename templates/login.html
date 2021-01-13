@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="is-size-2">Please login</h1>
+<br>
+<!-- errors -->
+{% if error%}
+<div class="notification is-danger is-light">
+    <button class="delete"></button>
+    <strong>Error:</strong> {{ error }}
+</div>
+{% endif %}
+
+<!-- messages -->
+{% for message in get_flashed_messages() %}
+    {{ message }}
+{% endfor %}
+
+<form action="" method="POST">
+
+    <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+            <input type="text" class="input" placeholder="Username" name="username" value="{{ request.form.username }}">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+            <input type="text" class="input" placeholder="Password" name="password" value="{{ request.form.password }}">
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <button class="button is-link is-dark">Submit</button>
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}
