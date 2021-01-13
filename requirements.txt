@@ -4,6 +4,5 @@ Flask-SQLAlchemy
 gunicorn
 itsdangerous
 Jinja2
-pkg-resources
 SQLAlchemy
 Werkzeug
