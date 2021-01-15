@@ -1,5 +1,5 @@
-from app import db
-from models import User
+from project import db
+from project.models import User
 
 # insert data
 db.session.add(User('tig', 'tig@python.org', 'I\'ll-never-tell'))
