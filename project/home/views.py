@@ -2,10 +2,12 @@
 #### imports ######
 ###################
 
-from project import app, db
-from project.models import BlogPost
-from flask import render_template, redirect, url_for, request, session, flash, Blueprint
-from functools import wraps
+from project import app, db # pragma: no cover
+from project.models import BlogPost # pragma: no cover
+from .forms import MessageForm # pragma: no cover
+from flask import render_template, redirect, url_for, request, session, flash, Blueprint # pragma: no cover
+from flask_login import login_required, current_user # pragma: no cover
+from functools import wraps # pragma: no cover
 
 ####################
 #### config ########
@@ -16,34 +18,30 @@ home_blueprint = Blueprint(
     template_folder='templates'
 )
 
-#########################
-### helper functions ####
-#########################
-
-def login_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash('You need to login first.')
-            return redirect(url_for('users.login'))
-    return wrap
-
 ######################
 #### routes ##########
 ######################
 
-# use decorators to link the function to the url
-@home_blueprint.route('/')
+# use decorators to link the function to a url
+@home_blueprint.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    # return 'Hello universe!' # return a string
-    posts = db.session.query(BlogPost).all()
-    return render_template('index.html', posts=posts) # render a template
-
-@home_blueprint.route('/welcome')
-def welcome():
-    return render_template('welcome.html') # render a template
+    error = None
+    form = MessageForm(request.form)
+    if form.validate_on_submit():
+        new_message = BlogPost(
+            form.title.data,
+            form.description.data,
+            current_user.id
+        )
+        db.session.add(new_message)
+        db.session.commit()
+        flash('New entry was successfully posted. Thanks.')
+        return redirect(url_for('home.home'))
+    else:
+        posts = db.session.query(BlogPost).all()
+        return render_template(
+            'index.html', posts=posts, form=form, error=error
+        )
 
 

@@ -1,11 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="is-size-1">Welcome to Flask</h1>
+<h1 class="is-size-1">Welcome to Flask!</h1>
 <br>
-<p>
-    Click <a href="/logout">here</a> to logout.
-</p>
+<p>Click <a href="/logout">here</a> to logout.</p>
+
+<h3>Add Post!</h3>
+
+<form action="" method="POST">
+    {{ form.csrf_token }}
+
+    <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+            {{ form.title(placeholder='title', class='input') }}
+        </div>
+        <p class="help is-danger">
+            {% if form.title.errors %}
+                {% for error in form.title.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+            {{ form.description(placeholder='description', class='input') }}
+        </div>
+        <p class="help is-danger">
+            {% if form.description.errors %}
+                {% for error in form.description.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <button class="button is-link is-dark" type="submit">Post</button>
+        </div>
+    </div>
+
+</form>
+
 <br><br>
 <h3 class="is-size-3">Posts:</h3>
 {% for post in posts %}
