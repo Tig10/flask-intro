@@ -8,7 +8,7 @@ See it Live https://tig-flask-intro.herokuapp.com
 ## Run locally
 
 1. Ensured postresql is installed and up and running
-2. ``$ git clone https://github.com/Tig10/flask-intro.git```
+2. ```$ git clone https://github.com/Tig10/flask-intro.git ```
 3. ```$ cd flask-intro```
 4. Created a virtual environment  ```$ python3 -m venv venv```
 5. Install dependencies with ```$ pip install -r requirements.txt```
